@@ -1,7 +1,5 @@
-const basicAuth= require("express-basic-auth");
 const express= require("express");
 const bodyParser=require('body-parser');
-const fs = require("fs");
 const morgan= require('morgan');
 const Product= require('./routes/product');
 const Category= require('./routes/Category');
@@ -28,7 +26,7 @@ const auth=(req,res,next)=>{
        try {    
         if(username){
             for(i=0;i<username.length;i++){
-                if(username[i]===req.body.email){
+                if(username[i]===req.headers.email){
                    return next();
                 }else{
                    continue

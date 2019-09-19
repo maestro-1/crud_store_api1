@@ -7,7 +7,7 @@ const {delet,getById, add}=require('./help/helpers')
 const router= express.Router();
 const storage= multer.diskStorage({
     destination: (req,res,cb)=>{
-        cb(null,".uploads/");
+        cb(null,"uploads");
     },
     filename: (req,file,cb)=>{
         cb(null,`${Date.now()} ${file.originalname}`);
@@ -21,14 +21,7 @@ const fileFilter=(req,file,cb)=>{
         cb(null,true)
     }
 }
-const upload= multer({storage:storage}, 
-    {
-    limits:{
-        fileSize:1024*1024*5
-        }
-    },
-    {fileFilter:fileFilter}
-);
+const upload= multer({storage:storage});
 
 
 const schema= Joi.object({
@@ -41,11 +34,12 @@ const schema= Joi.object({
             .required(),
     quantity: Joi.number()
             .required(),  
-    description: Joi.string()            
+    description: Joi.string(),    
+    imageUrl: Joi.string()
 })
 
 
-router.post('/',upload.single('productImage'), (req,res,next)=>{
+router.post('/',upload.single('imageUrl'), (req,res,next)=>{
    const {error}= Joi.validate(req.body,schema)
    if(error){
        console.log(error)
@@ -62,13 +56,14 @@ router.post('/',upload.single('productImage'), (req,res,next)=>{
                 price :  req.body.price,
                 quantity:  req.body.quantity,
                 description :  req.body.description, 
+                imageUrl: req.file
              }
             add(jsonString,newProduct)
             .then((product)=>{
                 fs.writeFileSync('./models/product.json',product)
                 res.status(201).json({
                     message: "added product succesfully",
-                    product:product
+                    product:newProduct
                 })
             })
             .catch((err)=>{

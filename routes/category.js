@@ -60,7 +60,7 @@ router.post('/',upload.single('categoryImage'), (req,res,next)=>{
                 fs.writeFileSync('./models/category.json',category)
                 res.status(201).json({
                     message: "added category succesfully",
-                    category:category
+                    category:newCategory
                 })
             })
             .catch((err)=>{

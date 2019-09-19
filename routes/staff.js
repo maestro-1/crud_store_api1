@@ -37,7 +37,7 @@ const schema= Joi.object({
         .required(),
     role: Joi.string()
             .required(), 
-    fullName: Joi.string()
+    first_name: Joi.string()
             .required(),
     mobile_number: Joi.number()
             .required(),  
@@ -59,7 +59,7 @@ router.post('/',upload.single('staffImage'), (req,res,next)=>{
                 id: Number([...id])+1,
                 email: req.body.email,
                 role :  req.body.role,
-                fullName :  req.body.fullName,
+                first_name :  req.body.fullName,
                 mobile_number:  req.body.mobile_number,
                 sales :  req.body.sales, 
              }
@@ -68,7 +68,7 @@ router.post('/',upload.single('staffImage'), (req,res,next)=>{
                 fs.writeFileSync('./models/staff.json',staff)
                 res.status(201).json({
                     message: "added staff succesfully",
-                    staff:staff
+                    staff:newStaff
                 })
             })
             .catch((err)=>{

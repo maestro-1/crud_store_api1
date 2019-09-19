@@ -1,10 +1,1 @@
-[
-    {
-        "id ": 1,
-        "email" : "tide@gmail.com",
-        "role" : "sales representative",
-        "first_name" : "tide",
-        "mobile_number" : "09069086531",
-        "sales" : 12
-    }
-]
+[{"id ":1,"email":"tide@gmail.com","role":"sales representative","first_name":"tide","mobile_number":"09069086531","sales":12},{"id":1,"email":"vickAdekunle@gmail.com","role":"director ","mobile_number":"09069057831","sales":"0"}]
